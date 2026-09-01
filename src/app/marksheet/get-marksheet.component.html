@@ -1,0 +1,105 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card">
+  <div class="inquiry-card-header">
+    <h1>Get Marksheet</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <form name="rollNo" (ngSubmit)="go()">
+      <div class="inquiry-form-grid">
+        <div class="inquiry-field">
+          <label class="inquiry-label"><i class="fa fa-hashtag"></i>Roll No</label>
+          <input class="inquiry-input" type="text" name="rollNo" id="rollNo" [(ngModel)]="form.data.rollNo" placeholder="Enter Roll No">
+        </div>
+
+        <div class="inquiry-actions">
+          <button class="btn btn-primary" type="submit" [disabled]="!validate()"><i class="fa fa-search mr-2"></i>Go</button>
+          <button class="btn btn-secondary" type="button" (click)="reset()"><i class="fa fa-redo mr-2"></i>Reset</button>
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="form.list && form.list.rollNo" style="margin-top: 24px;">
+      <table class="inquiry-grid-table">
+        <tr>
+          <th colspan="2">Roll No</th>
+          <td colspan="3">{{form.list.rollNo}}</td>
+        </tr>
+        <tr>
+          <th colspan="2">Name</th>
+          <td colspan="3">{{form.list.name}}</td>
+        </tr>
+        <tr>
+          <th>Subject</th>
+          <th>Max Marks</th>
+          <th>Min Marks</th>
+          <th colspan="2">Marks Obtained</th>
+        </tr>
+        <tr>
+          <td colspan="3"></td>
+          <th>Marks</th>
+          <th style="color: #1d4e89;">Grade</th>
+        </tr>
+        <tr>
+          <th>Physics</th>
+          <td>100</td>
+          <td>35</td>
+          <td>
+            <span [ngStyle]="{'color': (form.list.physics >= 35) ? 'black' : 'red'}">{{form.list.physics}}</span>
+            <span *ngIf="form.list.physics < 35" style="color: red;">*</span>
+          </td>
+          <td><span [ngStyle]="{'color': (form.list.physics >= 35) ? 'black' : 'red'}">{{getGrade(form.list.physics)}}</span></td>
+        </tr>
+        <tr>
+          <th>Chemistry</th>
+          <td>100</td>
+          <td>35</td>
+          <td>
+            <span [ngStyle]="{'color': (form.list.chemistry >= 35) ? 'black' : 'red'}">{{form.list.chemistry}}</span>
+            <span *ngIf="form.list.chemistry < 35" style="color: red;">*</span>
+          </td>
+          <td><span [ngStyle]="{'color': (form.list.chemistry >= 35) ? 'black' : 'red'}">{{getGrade(form.list.chemistry)}}</span></td>
+        </tr>
+        <tr>
+          <th>Maths</th>
+          <td>100</td>
+          <td>35</td>
+          <td>
+            <span [ngStyle]="{'color': (form.list.maths >= 35) ? 'black' : 'red'}">{{form.list.maths}}</span>
+            <span *ngIf="form.list.maths < 35" style="color: red;">*</span>
+          </td>
+          <td><span [ngStyle]="{'color': (form.list.maths >= 35) ? 'black' : 'red'}">{{getGrade(form.list.maths)}}</span></td>
+        </tr>
+        <tr>
+          <th colspan="2">Total</th>
+          <td colspan="3">{{form.list.maths + form.list.physics + form.list.chemistry}}</td>
+        </tr>
+
+        <ng-container *ngIf="form.list.physics >= 35 && form.list.chemistry >= 35 && form.list.maths >= 35">
+          <tr>
+            <th colspan="2">Percentage</th>
+            <td colspan="3">{{((form.list.physics + form.list.maths + form.list.chemistry) * 100) / 300 | number:'1.2-2'}}%</td>
+          </tr>
+          <tr>
+            <th colspan="2" style="color: #1d4e89;">Grade: <b>{{getOverallGrade()}}</b></th>
+            <td colspan="3" style="color: #0f8f4a;"><b>PASS</b></td>
+          </tr>
+        </ng-container>
+
+        <ng-container *ngIf="form.list.physics < 35 || form.list.chemistry < 35 || form.list.maths < 35">
+          <tr>
+            <th colspan="2" style="color: #1d4e89;">Final Grade: <span style="color: #d93025;"><b>F</b></span></th>
+            <td colspan="3" style="color: #d93025;"><b>FAIL</b></td>
+          </tr>
+        </ng-container>
+      </table>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

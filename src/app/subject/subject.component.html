@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card">
+  <div class="inquiry-card-header">
+    <h1 *ngIf="!form.data.id">Add Subject</h1>
+    <h1 *ngIf="form.data.id">Update Subject</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-book"></i>Name</label>
+        <input class="inquiry-input" type="text" name="name" [(ngModel)]="form.data.name" placeholder="Enter Subject Name">
+        <div class="error-text">{{ form.inputerror.name }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-graduation-cap"></i>Course</label>
+        <select class="inquiry-input" name="courseId" [(ngModel)]="form.data.courseId">
+          <option value="undefined">-------Select-------</option>
+          <option *ngFor="let obj of form.preload.courseList" [value]="obj.key">{{obj.value}}</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.courseId }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-align-left"></i>Description</label>
+        <textarea class="inquiry-input" name="description" [(ngModel)]="form.data.description" rows="3" style="resize: none;" placeholder="Enter Short description"></textarea>
+        <div class="error-text">{{ form.inputerror.description }}</div>
+      </div>
+
+      <div class="inquiry-actions">
+        <button class="btn btn-primary" (click)="submit()"><i class="fa fa-save mr-2"></i>Save</button>
+        <button class="btn btn-secondary" (click)="forward('/subjectList')"><i class="fa fa-list mr-2"></i>List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card inquiry-scroll-card">
+  <div class="inquiry-card-header">
+    <h1 *ngIf="!form.data.id">{{ 'UserForm.AddUser' | translate }}</h1>
+    <h1 *ngIf="form.data.id>0">{{ 'UserForm.UpdateUser' | translate }}</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user"></i>{{ 'UserForm.FirstName' | translate }}</label>
+        <input class="inquiry-input" type="text" name="firstName" [(ngModel)]="form.data.firstName" placeholder="{{ 'UserForm.Placeholders.FirstName' | translate }}">
+        <div class="error-text">{{ form.inputerror.firstName }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user"></i>{{ 'UserForm.LastName' | translate }}</label>
+        <input class="inquiry-input" type="text" name="lastName" [(ngModel)]="form.data.lastName" placeholder="{{ 'UserForm.Placeholders.LastName' | translate }}">
+        <div class="error-text">{{ form.inputerror.lastName }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user"></i>{{ 'UserForm.LoginId' | translate }}</label>
+        <input class="inquiry-input" type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="{{ 'UserForm.Placeholders.LoginId' | translate }}">
+        <div class="error-text">{{ form.inputerror.loginId }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-lock"></i>{{ 'UserForm.Password' | translate }}</label>
+        <input class="inquiry-input" type="password" name="password" [(ngModel)]="form.data.password" placeholder="{{ 'UserForm.Placeholders.Password' | translate }}">
+        <div class="error-text">{{ form.inputerror.password }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-calendar"></i>{{ 'UserForm.DateOfBirth' | translate }}</label>
+        <input class="inquiry-input" type="date" name="dob" [(ngModel)]="form.data.dob" [ngModel]="form.data.dob | date:'yyyy-MM-dd'" placeholder="{{ 'UserForm.Placeholders.DateOfBirth' | translate }}">
+        <div class="error-text">{{ form.inputerror.dob }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-venus-mars"></i>{{ 'UserForm.Gender' | translate }}</label>
+        <select class="inquiry-input" name="gender" [(ngModel)]="form.data.gender">
+          <option value="undefined">{{ 'UserForm.SelectOptions.Select' | translate }}</option>
+          <option value="Male">{{ 'UserForm.SelectOptions.Male' | translate }}</option>
+          <option value="Female">{{ 'UserForm.SelectOptions.Female' | translate }}</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.gender }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user-tag"></i>{{ 'UserForm.Role' | translate }}</label>
+        <select class="inquiry-input" name="roleId" [(ngModel)]="form.data.roleId">
+          <option value="undefined">{{ 'UserForm.SelectOptions.Select' | translate }}</option>
+          <option *ngFor="let obj of form.preload.roleList" [value]="obj.key">{{obj.value}}</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.roleId }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-mobile-alt"></i>{{ 'UserForm.Mobile' | translate }}</label>
+        <input class="inquiry-input" type="text" name="phone" [(ngModel)]="form.data.phone" maxlength="10" placeholder="{{ 'UserForm.Placeholders.Mobile' | translate }}">
+        <div class="error-text">{{ form.inputerror.phone }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-mobile-alt"></i>{{ 'UserForm.AlternateMobile' | translate }}</label>
+        <input class="inquiry-input" type="text" name="alternateMobile" [(ngModel)]="form.data.alternateMobile" maxlength="10" placeholder="{{ 'UserForm.Placeholders.AlternateMobile' | translate }}">
+        <div class="error-text">{{ form.inputerror.alternateMobile }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-check-circle"></i>{{ 'UserForm.Status' | translate }}</label>
+        <select class="inquiry-input" name="status" [(ngModel)]="form.data.status">
+          <option value="undefined">{{ 'UserForm.SelectOptions.Select' | translate }}</option>
+          <option value="Active">{{ 'UserForm.SelectOptions.Active' | translate }}</option>
+          <option value="Inactive">{{ 'UserForm.SelectOptions.Inactive' | translate }}</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.status }}</div>
+      </div>
+
+      <div class="inquiry-field inquiry-field-full">
+        <div class="text-center mb-3" *ngIf="form.data.id">
+          <img src="http://localhost:8080/User/profilePic/{{form.data.id}}" class="img-thumbnail shadow-sm" style="width: 2.5cm; height: 2.5cm; object-fit: cover;">
+        </div>
+      </div>
+
+      <div class="inquiry-field inquiry-field-full">
+        <label class="inquiry-label"><i class="fa fa-image"></i>Image</label>
+        <input class="inquiry-input" type="file" name="imageId" (change)="onFileSelect($event)" accept="image/*">
+        <div class="error-text"></div>
+      </div>
+
+      <div class="inquiry-actions">
+        <button class="btn btn-primary" (click)="submit()"><i class="fa fa-save mr-2"></i>{{ 'UserForm.Buttons.Save' | translate }}</button>
+        <button class="btn btn-secondary" (click)="forward('/userlist')"><i class="fa fa-list mr-2"></i>{{ 'UserForm.Buttons.List' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+
+

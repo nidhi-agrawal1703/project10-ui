@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-list-card">
+  <div class="inquiry-list-header">
+    <h1>Role List</h1>
+  </div>
+
+  <div class="inquiry-list-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-list-body">
+    <div *ngIf="form.list.length>0">
+      <div class="inquiry-list-search-card">
+        <div class="inquiry-list-search-row">
+          <label><b>Role:</b></label>
+          <select class="form-control" name="id" [(ngModel)]="form.searchParams.id">
+            <option value="undefined">------------Select------------</option>
+            <option *ngFor="let obj of form.preload.roleList" [value]="obj.key">{{obj.value}}</option>
+          </select>
+
+          <button class="btn btn-primary" (click)="search()">Search</button>
+          <button class="btn btn-secondary" (click)="reset()">Reset</button>
+        </div>
+      </div>
+
+      <table class="inquiry-grid-table">
+        <tr>
+          <th><input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)"></th>
+          <th>S.No.</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Edit</th>
+        </tr>
+
+        <tr *ngFor="let m of form.list; let i=index">
+          <td><input type="checkbox" #checkboxes (change)="checkListUpdate()" [id]="m.id" [value]="isMasterSel"></td>
+          <td>{{(form.pageNo*5)+i+1}}</td>
+          <td>{{m.name}}</td>
+          <td>{{m.description}}</td>
+          <td><a class="edit-link" (click)="forward('/role/' + m.id)">Edit</a></td>
+        </tr>
+      </table>
+
+      <div class="inquiry-list-actions">
+        <button class="btn btn-secondary" (click)="previous()" [disabled]="form.pageNo ==0">Previous</button>
+        <button class="btn btn-primary" (click)="forward('/role')">New</button>
+        <button class="btn btn-danger" (click)="deleteMany()">Delete</button>
+        <button class="btn btn-secondary" (click)="next()" [disabled]="form.nextListSize == 0">Next</button>
+      </div>
+    </div>
+
+    <div *ngIf="form.list.length == 0" class="empty-state">
+      <button class="btn btn-primary" (click)="reset()">Back</button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

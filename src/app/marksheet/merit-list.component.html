@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-list-card">
+  <div class="inquiry-list-header">
+    <h1>Merit List</h1>
+  </div>
+
+  <div class="inquiry-list-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-list-body">
+    <div *ngIf="form.list.length>0">
+      <div class="inquiry-list-actions" style="justify-content: flex-end;">
+        <button class="btn btn-primary" (click)="reset()"><i class="fa fa-sync mr-2"></i>Refresh</button>
+        <button class="btn btn-warning" style="min-width: 170px;padding-left: 24px; padding-right: 24px;" (click)="openJasperReport()">Merit List Report</button>
+      </div>
+
+      <table class="inquiry-grid-table">
+        <tr>
+          <th>Rank</th>
+          <th>Roll No</th>
+          <th>Name</th>
+          <th>Physics</th>
+          <th>Chemistry</th>
+          <th>Maths</th>
+          <th>Total</th>
+          <th>Percentage</th>
+          <th>Grade</th>
+        </tr>
+
+        <tr *ngFor="let m of form.list; let i=index">
+          <td>{{ m.rank }}</td>
+          <td>{{ m.rollNo }}</td>
+          <td>{{ m.name }}</td>
+          <td [ngStyle]="{'color': m.physics >= 35 ? 'black' : 'red'}">
+            {{ m.physics }}
+            <span *ngIf="m.physics < 35" style="color: red;">*</span>
+          </td>
+          <td [ngStyle]="{'color': m.chemistry >= 35 ? 'black' : 'red'}">
+            {{ m.chemistry }}
+            <span *ngIf="m.chemistry < 35" style="color: red;">*</span>
+          </td>
+          <td [ngStyle]="{'color': m.maths >= 35 ? 'black' : 'red'}">
+            {{ m.maths }}
+            <span *ngIf="m.maths < 35" style="color: red;">*</span>
+          </td>
+          <td>{{ getTotal(m) }}</td>
+          <td>{{ getPercentage(m) | number:'1.2-2' }}%</td>
+          <td [ngStyle]="{'color': getGrade(m) !== 'F' ? 'green' : 'red'}"><b>{{ getGrade(m) }}</b></td>
+        </tr>
+      </table>
+    </div>
+
+    <div *ngIf="form.list.length == 0" class="empty-state">
+      <h3 [ngClass]="{ 'error': form.error && form.message }" *ngIf="form.message">{{form.message}}</h3>
+      <button class="btn btn-primary" (click)="reset()"><i class="fa fa-arrow-left mr-2"></i>Back</button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

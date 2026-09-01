@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card batch-card inquiry-scroll-card">
+  <div class="inquiry-card-header">
+    <h1 *ngIf="!form.data.id">Add Batch</h1>
+    <h1 *ngIf="form.data.id">Update Batch</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-code"></i>Batch Code</label>
+        <input class="inquiry-input" type="text" name="batchCode" [(ngModel)]="form.data.batchCode" placeholder="Enter Batch Code">
+        <div class="error-text">{{form.inputerror.batchCode}}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-book"></i>Batch Name</label>
+        <input class="inquiry-input" type="text" name="batchName" [(ngModel)]="form.data.batchName" placeholder="Enter Batch Name">
+        <div class="error-text">{{form.inputerror.batchName}}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user-tie"></i>Trainer Name</label>
+        <input class="inquiry-input" type="text" name="trainerName" [(ngModel)]="form.data.trainerName" placeholder="Enter Trainer Name">
+        <div class="error-text">{{form.inputerror.trainerName}}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-clock"></i>Batch Timing</label>
+        <select class="inquiry-input" name="batchTiming" [(ngModel)]="form.data.batchTiming">
+          <option value="undefined">--------Select------</option>
+          <option value="9 am to 10 am">9 am to 10 am</option>
+          <option value="10 am to 11 am">10 am to 11 am</option>
+          <option value="11 am to 12 am">11 am to 12 am</option>
+        </select>
+        <div class="error-text">{{form.inputerror.batchTiming}}</div>
+      </div>
+
+      <div class="inquiry-actions">
+        <button class="btn btn-primary" (click)="submit()"><i class="fa fa-save mr-2"></i>Save</button>
+        <button class="btn btn-secondary" (click)="forward('/batchlist')"><i class="fa fa-list mr-2"></i>List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

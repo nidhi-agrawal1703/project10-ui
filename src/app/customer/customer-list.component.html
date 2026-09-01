@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+    <div align="center">
+        <h1 align="center" style="margin-bottom: 5px; color: navy;">Customer List</h1>
+
+    <div style="height: 20px; margin-bottom: 10px; text-align: center;">
+        <h3 style="margin: 0; color: green;" *ngIf="!form.error && form.message">{{form.message}}</h3>
+        <h3 style="margin: 0; color: red;" *ngIf="form.error && form.message">{{form.message}}</h3>
+    </div>
+
+    <div *ngIf="form.list.length>0">
+        <table style="width:100%" align="center">
+            <td align="center">
+                    <label><b>Customer Name</b></label>
+                    <input type="text" name="name" [(ngModel)]="form.searchParams.name" placeholder="Enter Customer Name">
+                   
+                </td>
+            <td>
+                <label><b>Customer Email</b></label>
+                    <input type="text" name="email" [(ngModel)]="form.searchParams.email" placeholder="Enter Customer Email">
+                    <button (click)="search()">Search</button>
+                    <button (click)="reset()">Reset</button>  
+            </td>    
+        </table>
+    </div>
+
+    <table border="1" style="width: 100%; border: groove;">
+        <tr>
+            <th><input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)"></th>
+             <th>S.No.</th>
+            <th>Customer Name </th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Edit</th>
+        </tr>
+
+        <tr align="center" *ngFor="let m of form.list;let i=index">
+            <td><input type="checkbox" *checkboxes (change)="checkListUpdate()" [id]="m.id" [value]="isMasterSel"></td>
+            <td>{{(form.pageNo*5)+i+1}}</td>
+            <td>{{m.name}}</td>
+            <td>{{m.email}}</td>
+            <td>{{m.phoneNumber}}</td>
+            <td>{{m.address}}</td>
+            <td><a (click)="forward('/customer/'+m.id)">Edit</a></td>
+        </tr>
+    </table>
+
+     <table style="width: 100%">
+            <tr>
+                <td style="width: 25%"><button (click)="previous()" [disabled]="form.pageNo ==0">Previous</button></td>
+                <td align="center" style="width: 25%"><button (click)="forward('/customer')">New</button></td>
+                <td align="center" style="width: 25%"><button (click)="deleteMany()">Delete</button></td>
+                <td style="width: 25%" align="right"><button (click)="next()" [disabled]="form.nextListSize == 0">Next</button></td>
+            </tr>
+        </table>
+      
+    </div>
+     <div *ngIf="form.list.length == 0" ><button (click)="reset()">Back</button></div> 
+<app-footer></app-footer>

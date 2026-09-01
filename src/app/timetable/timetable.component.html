@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card">
+  <div class="inquiry-card-header">
+    <h1 *ngIf="!form.data.id">Add Timetable</h1>
+    <h1 *ngIf="form.data.id">Update Timetable</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-book"></i>Course</label>
+        <select class="inquiry-input" name="courseId" [(ngModel)]="form.data.courseId">
+          <option value="undefined">---------Select-------</option>
+          <option *ngFor="let obj of form.preload.courseList" [value]="obj.key">{{obj.value}}</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.courseId }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-align-left"></i>Subject</label>
+        <select class="inquiry-input" name="subjectId" [(ngModel)]="form.data.subjectId">
+          <option value="undefined">---------Select-------</option>
+          <option *ngFor="let obj of form.preload.subjectList" [value]="obj.key">{{obj.value}}</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.subjectId }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-layer-group"></i>Semester</label>
+        <select class="inquiry-input" name="semester" [(ngModel)]="form.data.semester">
+          <option value="undefined">---------Select-------</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.semester }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-calendar"></i>Exam Date</label>
+        <input class="inquiry-input" type="date" name="examDate" [(ngModel)]="form.data.examDate" [ngModel]="form.data.examDate | date:'yyyy-MM-dd'" placeholder="Select Exam Date">
+        <div class="error-text">{{ form.inputerror.examDate }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-clock"></i>Exam Time</label>
+        <select class="inquiry-input" name="examTime" [(ngModel)]="form.data.examTime">
+          <option value="undefined">---------Select-------</option>
+          <option value="08:00 AM to 11:00 AM">08:00 AM to 11:00 AM</option>
+          <option value="12:00 PM to 03:00 PM">12:00 PM to 03:00 PM</option>
+          <option value="04:00 PM to 07:00 PM">04:00 PM to 07:00 PM</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.examTime }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-align-left"></i>Description</label>
+        <textarea class="inquiry-input" name="description" [(ngModel)]="form.data.description" rows="3" style="resize: none;" placeholder="Enter Short Description"></textarea>
+        <div class="error-text">{{ form.inputerror.description }}</div>
+      </div>
+
+      <div class="inquiry-actions">
+        <button class="btn btn-primary" (click)="submit()"><i class="fa fa-save mr-2"></i>Save</button>
+        <button class="btn btn-secondary" (click)="forward('timetablelist')"><i class="fa fa-list mr-2"></i>List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

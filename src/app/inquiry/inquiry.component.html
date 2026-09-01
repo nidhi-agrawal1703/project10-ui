@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card inquiry-scroll-card">
+  <div class="inquiry-card-header">
+    <h1 *ngIf="!form.data.id">Add Inquiry</h1>
+    <h1 *ngIf="form.data.id">Update Inquiry</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user"></i>Name</label>
+        <input class="inquiry-input" type="text" name="name" [(ngModel)]="form.data.name" placeholder="Enter Name">
+        <div class="error-text">{{form.inputerror.name}}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-envelope"></i>Email</label>
+        <input class="inquiry-input" type="text" name="email" [(ngModel)]="form.data.email" placeholder="Enter Email">
+        <div class="error-text">{{form.inputerror.email}}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-file-alt"></i>Subject</label>
+        <input class="inquiry-input" type="text" name="subject" [(ngModel)]="form.data.subject" placeholder="Enter Subject">
+        <div class="error-text">{{form.inputerror.subject}}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-check-circle"></i>Status</label>
+        <input class="inquiry-input" type="text" name="status" [(ngModel)]="form.data.status" placeholder="Enter Status">
+        <div class="error-text">{{form.inputerror.status}}</div>
+      </div>
+
+      <div class="inquiry-actions">
+        <button class="btn btn-primary" (click)="submit()"><i class="fa fa-save mr-2"></i>Save</button>
+        <button class="btn btn-secondary" (click)="forward('/inquirylist')"><i class="fa fa-list mr-2"></i>List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

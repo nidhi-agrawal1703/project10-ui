@@ -1,0 +1,49 @@
+<app-navbar></app-navbar>
+<div align="center">
+     <h1 *ngIf="!form.data.id" align="center" style="margin-bottom: 5px; color: navy">Add Parking</h1>
+    <h1 *ngIf="form.data.id" align="center" style="margin-bottom: 5px; color: navy">Update Parking</h1>
+
+     <div style="height: 20px; margin-bottom: 10px; text-align: center;">
+        <h3 style="margin: 0; color: green;" *ngIf="!form.error && form.message">{{form.message}}</h3>
+        <h3 style="margin: 0; color:red;" *ngIf="form.error && form.message">{{form.message}}</h3>
+    </div>
+
+    <table>
+        <tr>
+            <th align="left">Parking Code</th>
+            <td align="center"><input type="text" name="parkingCode" [(ngModel)]="form.data.parkingCode" placeholder="Enter Parking Code"></td>
+            <td style="position: fixed; color: red;">{{form.inputerror.parkingCode}}</td>
+        </tr>
+
+         <tr>
+            <th align="left">Vehicle Number</th>
+            <td align="center"><input type="text" name="vehicleNumber" [(ngModel)]="form.data.vehicleNumber" placeholder="Enter Vehicle Number"></td>
+            <td style="position: fixed; color: red;">{{form.inputerror.vehicleNumber}}</td>
+        </tr>
+
+        <tr>
+            <th align="left">Slot Number</th>
+            <td align="center"><input type="text" name="slotNumber" [(ngModel)]="form.data.slotNumber" placeholder="Enter Slot Number"></td>
+            <td style="position: fixed; color: red;">{{form.inputerror.slotNumber}}</td>
+        </tr>
+
+         <tr>
+            <th align="left">Status</th>
+            <td align="center"><select name="status" [(ngModel)]="form.data.status" style="width: 170px;">
+                    <option value="undefined">--------Select------</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select></td>
+            <td style="position: fixed; color: red;">{{form.inputerror.status}}</td>
+        </tr>
+        <tr>
+            <th></th>
+            <td align="left" colspan="2">
+                 <button (click)="submit()">save</button> &nbsp;
+                 <button (click)="forward('/parkinglist')">list</button>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,56 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card">
+  <div class="inquiry-card-header">
+    <h1 *ngIf="!form.data.id">Add Marksheet</h1>
+    <h1 *ngIf="form.data.id">Update Marksheet</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-hashtag"></i>Roll No</label>
+        <input class="inquiry-input" type="text" name="rollNo" [(ngModel)]="form.data.rollNo" placeholder="Enter Roll Number">
+        <div class="error-text">{{ form.inputerror.rollNo }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user"></i>Name</label>
+        <select class="inquiry-input" name="studentId" [(ngModel)]="form.data.studentId">
+          <option value="undefined">-------Select-------</option>
+          <option *ngFor="let obj of form.preload.studentList" [value]="obj.key">{{obj.value}}</option>
+        </select>
+        <div class="error-text">{{ form.inputerror.studentId }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-atom"></i>Physics</label>
+        <input class="inquiry-input" type="text" name="physics" [(ngModel)]="form.data.physics" placeholder="Enter Physics Number">
+        <div class="error-text">{{ form.inputerror.physics }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-flask"></i>Chemistry</label>
+        <input class="inquiry-input" type="text" name="chemistry" [(ngModel)]="form.data.chemistry" placeholder="Enter Chemistry Number">
+        <div class="error-text">{{ form.inputerror.chemistry }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-square-root-alt"></i>Maths</label>
+        <input class="inquiry-input" type="text" name="maths" [(ngModel)]="form.data.maths" placeholder="Enter Maths Number">
+        <div class="error-text">{{ form.inputerror.maths }}</div>
+      </div>
+
+      <div class="inquiry-actions">
+        <button class="btn btn-primary" (click)="submit()"><i class="fa fa-save mr-2"></i>Save</button>
+        <button class="btn btn-secondary" (click)="forward('/marksheetlist')"><i class="fa fa-list mr-2"></i>List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

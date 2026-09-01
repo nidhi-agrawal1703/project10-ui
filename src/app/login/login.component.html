@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card">
+  <div class="inquiry-card-header">
+    <h1>Login</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-status error" *ngIf="form.errorMessage">
+    {{form.errorMessage}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-user"></i>Login Id</label>
+        <input class="inquiry-input" type="text" name="loginId" [(ngModel)]="form.data.loginId" placeholder="Enter Login Id">
+        <div class="error-text">{{ form.inputerror.loginId }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-lock"></i>Password</label>
+        <input class="inquiry-input" type="password" name="password" [(ngModel)]="form.data.password" placeholder="Enter Password">
+        <div class="error-text">{{ form.inputerror.password }}</div>
+      </div>
+
+      <div class="inquiry-field-full text-center">
+        <a [routerLink]="['/forgetpassword']"><b>Forgot Password</b></a>
+      </div>
+
+      <div class="inquiry-actions" style="justify-content: center;">
+        <button class="btn btn-primary" (click)="signIn()"><i class="fa fa-sign-in-alt mr-2"></i>Sign In</button>
+        <button class="btn btn-secondary" [routerLink]="['/signup']"><i class="fa fa-user-plus mr-2"></i>Sign Up</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

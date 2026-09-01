@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<div class="inquiry-card inquiry-scroll-card">
+  <div class="inquiry-card-header">
+    <h1 *ngIf="!form.data.id">Add College</h1>
+    <h1 *ngIf="form.data.id">Update College</h1>
+  </div>
+
+  <div class="inquiry-status" [ngClass]="{ 'success': !form.error && form.message, 'error': form.error && form.message }" *ngIf="form.message">
+    {{form.message}}
+  </div>
+
+  <div class="inquiry-form-body">
+    <div class="inquiry-form-grid">
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-university"></i>Name</label>
+        <input class="inquiry-input" type="text" name="name" [(ngModel)]="form.data.name" placeholder="Enter Name">
+        <div class="error-text">{{ form.inputerror.name }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-map-marker-alt"></i>Address</label>
+        <input class="inquiry-input" type="text" name="address" [(ngModel)]="form.data.address" placeholder="Enter Address">
+        <div class="error-text">{{ form.inputerror.address }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-flag"></i>State</label>
+        <input class="inquiry-input" type="text" name="state" [(ngModel)]="form.data.state" placeholder="Enter State">
+        <div class="error-text">{{ form.inputerror.state }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-city"></i>City</label>
+        <input class="inquiry-input" type="text" name="city" [(ngModel)]="form.data.city" placeholder="Enter City">
+        <div class="error-text">{{ form.inputerror.city }}</div>
+      </div>
+
+      <div class="inquiry-field">
+        <label class="inquiry-label"><i class="fa fa-phone"></i>Phone No</label>
+        <input class="inquiry-input" type="text" name="phoneNo" [(ngModel)]="form.data.phoneNo" placeholder="Enter Phone No">
+        <div class="error-text">{{ form.inputerror.phoneNo }}</div>
+      </div>
+
+      <div class="inquiry-actions">
+        <button class="btn btn-primary" (click)="submit()"><i class="fa fa-save mr-2"></i>Save</button>
+        <button class="btn btn-secondary" (click)="forward('/collegelist')"><i class="fa fa-list mr-2"></i>List</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
